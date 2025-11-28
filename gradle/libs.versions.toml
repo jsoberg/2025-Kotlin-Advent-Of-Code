@@ -1,0 +1,12 @@
+[versions]
+kotlin = "2.2.21"
+kotlinCoroutines = "1.10.2"
+
+sobergAocUtilities = "2025.1.1"
+
+[libraries]
+# Kotlin
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+
+# Third-party
+soberg-aoc-utilities = { module = "com.github.jsoberg:Kotlin-AoC-Utilities", version.ref = "sobergAocUtilities" }

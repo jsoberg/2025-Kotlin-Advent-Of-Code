@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version libs.versions.kotlin
 }
 
 sourceSets {
@@ -12,4 +12,10 @@ tasks {
     wrapper {
         gradleVersion = "9.2.1"
     }
+}
+
+
+dependencies {
+    implementation(libs.kotlin.coroutines)
+    implementation(libs.soberg.aoc.utilities)
 }
