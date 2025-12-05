@@ -25,15 +25,10 @@ private object Day04 {
     }
 
     object Part1 {
-        fun numAccessibleRolls(grid: Grid2D<PaperRoll?>): Int {
-            var accessibleRollCount = 0
-            grid.traverse { location ->
-                if (isAccessiblePaperRoll(grid, location)) {
-                    accessibleRollCount++
-                }
+        fun numAccessibleRolls(grid: Grid2D<PaperRoll?>): Int =
+            grid.count { location, _ ->
+                isAccessiblePaperRoll(grid, location)
             }
-            return accessibleRollCount
-        }
     }
 
     object Part2 {
