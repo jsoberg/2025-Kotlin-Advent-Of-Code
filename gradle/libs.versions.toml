@@ -2,7 +2,7 @@
 kotlin = "2.2.21"
 kotlinCoroutines = "1.10.2"
 
-sobergAocUtilities = "2025.2"
+sobergAocUtilities = "2025.3.1"
 
 [libraries]
 # Kotlin
