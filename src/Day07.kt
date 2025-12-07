@@ -6,6 +6,7 @@ fun main() {
     val input = readInput(day = 7)
     val manifold = Day07.parseTachyonManifold(input)
     println("Part 1: ${Day07.Part1.tachyonBeamSplitCount(manifold)}")
+    println("Part 2: ${Day07.Part2.tachyonTimelineCount(manifold)}")
 }
 
 private object Day07 {
@@ -35,6 +36,34 @@ private object Day07 {
         }
     }
 
+    object Part2 {
+        fun tachyonTimelineCount(manifold: TachyonManifold): Long {
+            val memoizedTimelineCountMap = mutableMapOf<Grid2D.Location, Long>()
+
+            fun countBeamTimelines(
+                location: Grid2D.Location,
+                diagram: Grid2D<TachyonManifold.Item>,
+            ): Long {
+                if (!diagram.isInBounds(location)) return 1L
+                return memoizedTimelineCountMap.getOrPut(location) {
+                    when (diagram[location]) {
+                        TachyonManifold.Item.Splitter -> {
+                            val left = location.move(Grid2D.Direction.SouthEast)
+                            val right = location.move(Grid2D.Direction.SouthWest)
+                            countBeamTimelines(left, diagram) + countBeamTimelines(right, diagram)
+                        }
+
+                        else -> countBeamTimelines(location.move(Grid2D.Direction.South), diagram)
+                    }
+                }
+            }
+
+            return countBeamTimelines(
+                location = manifold.startingPoint.move(Grid2D.Direction.South),
+                diagram = manifold.diagram,
+            )
+        }
+    }
 
     fun parseTachyonManifold(input: List<String>): TachyonManifold {
         var startingPointLocation: Grid2D.Location? = null
@@ -66,9 +95,7 @@ private object Day07 {
     ) {
 
         enum class Item {
-            StartingPoint,
-            Splitter,
-            EmptySpace,
+            StartingPoint, Splitter, EmptySpace,
         }
     }
 }
